@@ -1,12 +1,16 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
+
+#ruby-gemset=firstrailsapp
+
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0.2'
 end
 
   group :test do
     gem 'selenium-webdriver'
-    gem 'capybara'
+    gem 'capybara', '~> 2.4.1'
   end
 
 
