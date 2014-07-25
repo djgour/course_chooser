@@ -23,4 +23,3 @@ database.yml
 .DS_Store
 .idea
 .secret
-secrets.yml
