@@ -1,0 +1,51 @@
+@import "bootstrap";
+
+body {
+  margin: 20 px;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 70px;
+}
+
+.btn-form {
+  margin-top: 20px;
+}
+
+.control-label {
+  margin-top: 10px;
+}
+
+/* Titles */
+
+
+/* Navbar */
+
+.navbar-brand {
+  letter-spacing: -1px;
+  font-weight: bold;
+  color: #fff;
+}
+
+
+
+/* Errors */
+
+.error_explanation {
+  border: 1px solid red;
+  border-radius: 10px;
+  background: #ffe1e7;
+}
+
+.alert {
+  padding: 0px;
+  margin: 10px;
+  border: 1px solid #fff;
+  border-radius: 10px;
+}
+
+.field_with_errors {
+  .form-control {
+    background: #ffe1e7;
+  }
+}
