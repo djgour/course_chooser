@@ -8,7 +8,7 @@ RSpec.describe "UserPages", :type => :request do
     before { visit register_path }
 
     it { should have_title("Register") }
-    it { should have_content("Register for Course Chooser") }
+    it { should have_content("Register") }
   end
 
   describe "registration" do

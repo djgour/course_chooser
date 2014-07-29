@@ -8,7 +8,12 @@ RSpec.describe "StaticPages", :type => :request do
     describe "Home Page" do
       before { visit root_path }
 
-      it { should have_content('Home') }
+      describe "when not signed in" do
+        before { click_link 'Sign in' }
+
+        it { should have_content('Sign in') }
+        it { should have_title('Sign in') }
+      end
       
     end
   end
