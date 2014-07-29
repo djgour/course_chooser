@@ -1,5 +1,6 @@
 @import "bootstrap";
 
+
 body {
   margin: 20 px;
   padding-top: 10px;
@@ -21,30 +22,48 @@ body {
 
 /* Navbar */
 
+.navbar {
+  box-shadow: 3px 3px 3px #777;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
 .navbar-brand {
   letter-spacing: -1px;
   font-weight: bold;
-  color: #fff;
 }
 
+.nav {
+  padding: 0px;
+  line-height: 10px;
+}
 
+.navbar-nav {
+  padding: 0px;
+  &:hover {
+    background: #aaf;
+  }
+}
 
 /* Errors */
 
 .error_explanation {
   border-radius: 10px;
-  background: #ffe1e7;
+  background: #faa;
+  padding: 10px;
 }
 
 .alert {
   padding: 0px;
-  margin: 10px;
+  margin: 0px;
+  font-weight: bold;
 }
 
 .alert-error {
-  border: 1px solid red;
   border-radius: 10px;
-  background: #ffe1e7;
+  background: #faa;
+  padding: 0px;
+  margin: 0px;
 }
 
 .field_with_errors {

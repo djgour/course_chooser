@@ -15,7 +15,8 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:success] = "Successfully registered!"
-      redirect_to @user
+      sign_in @user
+      redirect_to root_url
     else
       render 'new'
     end
