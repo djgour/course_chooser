@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :courses
+
+  resources :courseplans
+
   get 'users/new'
   resources :users
   resources :sessions, only: [:new, :create, :destroy]

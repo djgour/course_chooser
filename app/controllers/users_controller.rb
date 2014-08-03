@@ -4,15 +4,23 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    if signed_in? && admin?
+      @user = User.find(params[:id])
+    else
+      redirect_to root_url
+    end
   end
 
   def index
+    if signed_in? && admin?
+      @users = User.all
+    else
+      redirect_to root_url
+    end
   end
 
   def create
-    @user = User.new(user_params) # fix later to use strong params
-
+    @user = User.new(user_params)
     if @user.save
       flash[:success] = "Successfully registered!"
       sign_in @user

@@ -1,4 +1,8 @@
 <% provide(:title, home_title) %>
 
 <h1><%= yield :title %></h1>
-<%= link_to 'Create an account now!', users_new_path, class: "btn btn-primary" unless signed_in? %>
+<% if signed_in? %>
+  <%= render 'courseplans/main' %>
+<% else %>
+  <%= link_to 'Create an account now!', users_new_path, class: "btn btn-primary" %>
+<% end %>

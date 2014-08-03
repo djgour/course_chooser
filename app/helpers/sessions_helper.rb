@@ -14,6 +14,10 @@ module SessionsHelper
   def current_user=(user)
     @current_user = user
   end
+  
+  def admin?
+    false
+  end
 
   def current_user
     remember_token = User.digest(cookies[:remember_token])

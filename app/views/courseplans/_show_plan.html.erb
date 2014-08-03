@@ -1,0 +1,7 @@
+<h2><%= courseplan.name %></h2>
+<p>Show semesters</p>
+<p>Show courses not in semesters</p>
+
+<%= render partial: 'courseplans/other_courseplans',
+                     object: courseplan,
+                     as: 'courseplan' %>

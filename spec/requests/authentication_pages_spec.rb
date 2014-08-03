@@ -43,6 +43,14 @@ RSpec.describe "AuthenticationPages", :type => :request do
         before { click_link 'Sign out' }
         it { should have_link('Sign in') }
       end
+
+      describe "followed by visiting signin path" do
+        before { visit signin_path }
+
+        it { should_not have_button "Sign in" }
+        it { should have_selector "div.alert-error" }
+        it { should have_content "already signed in" }
+      end
     end
   end
 end

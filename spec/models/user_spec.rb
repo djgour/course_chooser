@@ -15,6 +15,7 @@ RSpec.describe User, :type => :model do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:default_courseplan) }
 
   it { should be_valid }
 
@@ -118,6 +119,29 @@ RSpec.describe User, :type => :model do
   describe "remember token" do
     before { @user.save }
     it { expect(@user.remember_token).not_to be_blank }
+  end
+  
+  describe "default courseplan" do
+    before do
+       @user.save
+       if @user.courseplans.any?
+         @user.courseplans.all.each do |plan|
+           plan.destroy
+         end
+       end
+     end
+    
+    it "should return nil if user has no courseplans" do
+      expect(@user.default_courseplan).to be_nil
+    end
+      
+    it "should set the first plan as the default if there is none" do
+      @user.courseplans.create(name: "First")
+      @user.courseplans.create(name: "Second")
+      @user.default_courseplan.name.should eq "First"
+      @user.default_courseplan.destroy
+      @user.default_courseplan.name.should eq "Second"
+    end
   end
 
 end

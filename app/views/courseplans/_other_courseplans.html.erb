@@ -1,0 +1,8 @@
+<% if current_user.has_multiple_courseplans %>
+  <p>Your other courseplans</p>
+  <ul>
+    <% current_user.all_courseplans(except: courseplan).each do |plan| %>
+        <li><%= link_to plan.name, plan %></li>
+    <% end %>
+  </ul>
+<% end %>
