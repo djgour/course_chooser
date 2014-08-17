@@ -11,4 +11,10 @@ FactoryGirl.define do
     name      "Default"
   end
   
+  
+  factory :course do
+    name    "Learning Rails"
+    code    "INF7777H"
+    description "Learn how to use Ruby on Rails to create online information systems."
+  end
 end

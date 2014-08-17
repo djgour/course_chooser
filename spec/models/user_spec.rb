@@ -138,9 +138,9 @@ RSpec.describe User, :type => :model do
     it "should set the first plan as the default if there is none" do
       @user.courseplans.create(name: "First")
       @user.courseplans.create(name: "Second")
-      @user.default_courseplan.name.should eq "First"
+      expect(@user.default_courseplan.name).to eq "First"
       @user.default_courseplan.destroy
-      @user.default_courseplan.name.should eq "Second"
+      expect(@user.default_courseplan.name).to eq "Second"
     end
   end
 

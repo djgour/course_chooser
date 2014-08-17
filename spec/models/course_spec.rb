@@ -11,4 +11,24 @@ RSpec.describe Course, :type => :model do
   it { should respond_to(:name) }
   it { should respond_to(:description) }
   it { should respond_to(:code) }
+  
+  describe "when the course code is too short" do
+    before { @course.update(code: "BKS1000") }
+    it { should_not be_valid }
+  end
+  
+  describe "when the course code is too long" do
+    before { @course.update(code: "BKS1001HY") }
+    it { should_not be_valid }
+  end
+  
+  describe "when the description is too short" do
+    before { @course.update(description: "Hi") }
+    it { should_not be_valid }
+  end
+  
+  describe "when the name is missing" do
+    before { @course.update(name: "") }
+    it { should_not be_valid }
+  end
 end

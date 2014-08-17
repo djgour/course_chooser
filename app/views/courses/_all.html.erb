@@ -1,0 +1,7 @@
+<ul>
+  <% Course.all_sorted.each do |course| %>
+    <li><%= render partial: 'courses/course_widget',
+                   locals: { courseplan: current_user.default_courseplan,
+                             course: course }%></li>
+  <% end %>
+</ul>

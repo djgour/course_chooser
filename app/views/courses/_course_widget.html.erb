@@ -1,0 +1,7 @@
+<%= course_link course %>
+<% unless courseplan.nil? %>
+  <%= render partial: 'courses/addition_widget',
+             locals: { courseplan: courseplan, course: course } %>
+  <%= render partial: 'courses/removal_widget',
+             locals: { courseplan: courseplan, course: course } %>
+<% end %>

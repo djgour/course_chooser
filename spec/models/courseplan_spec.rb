@@ -8,6 +8,10 @@ RSpec.describe Courseplan, :type => :model do
   end
 
   subject { @courseplan }
+  it { should respond_to(:plan_entries) }
+  it { should respond_to(:add_course!) }
+  it { should respond_to(:remove_course!) }
+  it { should respond_to(:has_course?) }
 
   describe "two plans with the same name and user" do
     before do
@@ -72,6 +76,34 @@ RSpec.describe Courseplan, :type => :model do
 
     it "should delete associated courseplans" do
       expect { @user.destroy }.to change(Courseplan, :count).by(-1)
+    end
+  end
+  
+  describe "adding a course" do
+    let(:course) { FactoryGirl.create(:course) }
+    before do
+      @courseplan.name = "Default"
+      @courseplan.user_id = @user.id
+      @courseplan.save
+      @courseplan.add_course!(course)
+    end
+    
+    it "should include the course in the courseplan" do
+       expect(@courseplan.courses).to include(course)
+    end
+    
+    it "should tell you the course is in it" do
+      expect(@courseplan.has_course?(course)).to be_truthy
+    end
+    
+    it "should allow you to remove it" do
+      @courseplan.remove_course!(course)
+      expect(@courseplan.courses).to_not include(course) 
+    end
+    
+    it "should tell you if a course is removed" do
+      @courseplan.remove_course!(course)
+      expect(@courseplan.has_course?(course)).to be_falsey
     end
   end
   

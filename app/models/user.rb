@@ -22,12 +22,13 @@ class User < ActiveRecord::Base
   end
   
   def default_courseplan
+    
     ######################
     # Refactor this.... #
     #####################
     
     return nil unless self.courseplans.any?
-    
+
     if self.courseplans.any? && Courseplan.find_by(id: self.default_id, user_id: self.id).nil?
       self.default_id = self.courseplans.first.id
     end

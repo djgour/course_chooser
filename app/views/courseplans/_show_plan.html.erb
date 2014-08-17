@@ -1,6 +1,10 @@
 <h2><%= courseplan.name %></h2>
-<p>Show semesters</p>
-<p>Show courses not in semesters</p>
+<ul>
+  <% courseplan.courses.each do |course| %>
+    <li><%= render partial: 'courses/course_widget',
+                   locals: { courseplan: courseplan, course: course }%></li>
+  <% end %>
+</ul>
 
 <%= render partial: 'courseplans/other_courseplans',
                      object: courseplan,

@@ -2,7 +2,12 @@
 
 <h1><%= yield :title %></h1>
 <% if signed_in? %>
-  <%= render 'courseplans/main' %>
+  <div class="courseplans">
+    <%= render 'courseplans/main' %>
+  </div>
+  <div class="courselist">
+    <%= render 'courses/all' %>
+  </div>
 <% else %>
   <%= link_to 'Create an account now!', users_new_path, class: "btn btn-primary" %>
 <% end %>
