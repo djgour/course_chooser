@@ -51,6 +51,10 @@ class User < ActiveRecord::Base
   def has_multiple_courseplans
     courseplans.size > 1
   end
+
+  def is_admin?
+    self.admin
+  end
   
   private
 

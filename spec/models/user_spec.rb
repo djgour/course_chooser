@@ -16,6 +16,7 @@ RSpec.describe User, :type => :model do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:active_courseplan) }
+  it { should respond_to(:is_admin?) }
 
   it { should be_valid }
 
