@@ -30,11 +30,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+  end
+
+  def change_default_courseplan
+    current_user.update(active_courseplan_id: params[:courseplan_id])
+    redirect_to :back
+  end
+  
   private
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+                                   :password_confirmation, :default_id)
     end
 
 

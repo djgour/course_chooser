@@ -19,6 +19,12 @@ class CourseplansController < ApplicationController
     plans = current_user.courseplans.all
     @courseplan = plans.find(params[:id])
   end
+
+  def destroy
+    @courseplan = current_user.courseplans.find_by(id: params[:id])
+    @courseplan.destroy
+    redirect_to root_url
+  end
   
 
     private

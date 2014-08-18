@@ -48,7 +48,7 @@ RSpec.describe "PlanEntryPages", :type => :request do
       it { should have_link "+" }
       it { should have_text "#{@course1.name} +" }
       it "should increase the courseplan's course count by 1" do
-        expect { first(:link, "+").click }.to change(user.default_courseplan.courses, :count).by(1)
+        expect { first(:link, "+").click }.to change(user.active_courseplan.courses, :count).by(1)
       end
     end
   end

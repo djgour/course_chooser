@@ -79,6 +79,20 @@ RSpec.describe Courseplan, :type => :model do
     end
   end
   
+  describe "deleting the course plan" do
+    before do
+      @courseplan.user_id = @user.id
+      @courseplan.name = "Default"
+      @courseplan.save
+      @courseplan.destroy
+    end
+
+    it "should not destroy the parent user" do
+      expect(User.find_by(id: @user.id)).to_not be_nil
+    end
+  end
+
+
   describe "adding a course" do
     let(:course) { FactoryGirl.create(:course) }
     before do

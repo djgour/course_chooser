@@ -42,6 +42,20 @@ RSpec.describe "CourseplanPages", :type => :request do
         it { should have_content('New plan created!') }
         it { should have_content "Alternate" }
         it { should have_link "Alternate" } 
+        describe "the non-default courseplan" do
+          before do
+            click_link "Alternate"
+          end
+          it { should have_link("Set as default courseplan") }
+
+          describe "when the set as default link is clicked" do
+            before do
+              click_link "Set as default courseplan"
+              visit root_path
+            end
+            it { should have_selector("h2", text: "Alternate") }
+          end
+        end
       end
     end
   end

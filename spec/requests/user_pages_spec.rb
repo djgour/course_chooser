@@ -44,6 +44,18 @@ RSpec.describe "UserPages", :type => :request do
         it { should have_content("Email can't be blank") }
         it { should have_content("Email is invalid") }
         it { should have_content("Password can't be blank") }
+    end
+
+    describe "with invalid information -- password too short" do
+      before do
+        visit register_path
+        fill_in "Password",   with: "foo"
+        fill_in "Confirm your password",  with: "foo"
+        click_button submit
+      end
+        it { should have_content("Name can't be blank") }
+        it { should have_content("Email can't be blank") }
+        it { should have_content("Email is invalid") }
         it { should have_content("Password is too short") }
     end
   end

@@ -15,7 +15,7 @@ RSpec.describe User, :type => :model do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
-  it { should respond_to(:default_courseplan) }
+  it { should respond_to(:active_courseplan) }
 
   it { should be_valid }
 
@@ -109,7 +109,7 @@ RSpec.describe User, :type => :model do
 
   describe "with a password that's too short" do
     before do
-      @user = User.new(name: "Example User", email: "user@example.org",
+      @user = User.create(name: "Example User", email: "user@example.org",
                        password: "pwd", password_confirmation: "pwd")
     end
 
@@ -132,15 +132,30 @@ RSpec.describe User, :type => :model do
      end
     
     it "should return nil if user has no courseplans" do
-      expect(@user.default_courseplan).to be_nil
+      expect(@user.active_courseplan).to be_nil
     end
       
     it "should set the first plan as the default if there is none" do
       @user.courseplans.create(name: "First")
       @user.courseplans.create(name: "Second")
-      expect(@user.default_courseplan.name).to eq "First"
-      @user.default_courseplan.destroy
-      expect(@user.default_courseplan.name).to eq "Second"
+      expect(@user.courseplans.count).to eq 2
+      expect(@user.active_courseplan.name).to eq "First"
+      @user.active_courseplan.destroy
+      expect(@user.active_courseplan.name).to eq "Second"
+    end
+
+    describe "multiple courseplans" do
+      before do
+        @plan1 = @user.courseplans.create(name: "First")
+        @plan2 = @user.courseplans.create(name: "Second")
+        @user.active_courseplan
+      end
+
+      it "should allow you to change default courseplans" do
+        expect(@user.active_courseplan.name).to eq @plan1.name
+        @user.make_active_plan(@plan2)
+        expect(@user.active_courseplan.name).to eq @plan2.name
+      end
     end
   end
 

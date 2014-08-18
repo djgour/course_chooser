@@ -1,7 +1,6 @@
-<h2>Welcome!</h2>
 <% if current_user.courseplans.any? %>
   <%= render partial: 'courseplans/show_plan',
-                      object: current_user.default_courseplan,
+                      object: current_user.active_courseplan,
                       as: 'courseplan' %>
 <% else %>
   <p>You currently have no course plans.</p>

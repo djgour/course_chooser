@@ -1,6 +1,6 @@
 class Courseplan < ActiveRecord::Base
   belongs_to :user
-  has_many :plan_entries
+  has_many :plan_entries, dependent: :destroy
   has_many :courses, through: :plan_entries
   validates :user, presence: true
   validates :name, presence: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813001749) do
+ActiveRecord::Schema.define(version: 20140818010213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,10 +52,9 @@ ActiveRecord::Schema.define(version: 20140813001749) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token"
-    t.integer  "default_id"
+    t.integer  "active_courseplan_id"
   end
 
-  add_index "users", ["default_id"], name: "index_users_on_default_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 

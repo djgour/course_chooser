@@ -2,17 +2,17 @@ require 'rails_helper'
 
 RSpec.describe PlanEntry, :type => :model do
   before do
-    @course1 = Course.create(code: "BKS1001H", 
-                            name: "Introduction to Book History", 
-                     description: "A course about introducing book history.")
+    @course1 = Course.create(code: "RLS1001H", 
+                            name: "Introduction to Ruby on Rails", 
+                     description: "A course about introducing Ruby on Rails.")
                      
-    @course2 = Course.create(code: "BKS2001H", 
-                           name: "Intermediate Book History", 
-                    description: "A course about intermediate book history.")
+    @course2 = Course.create(code: "RLS2001H", 
+                           name: "Intermediate Ruby on Rails", 
+                    description: "A course about intermediate Ruby on Rails.")
     
-    @course1 = Course.create(code: "BKS3001H", 
-                            name: "Advanced Book History", 
-                     description: "A course about advanced book history.")
+    @course1 = Course.create(code: "RLS3001H", 
+                            name: "Advanced Ruby on Rails", 
+                     description: "A course about advanced Ruby on Rails.")
     
      @user = User.create(name: "Example User", email: "user@example.com",
                          password: "foobar", password_confirmation: "foobar") 
@@ -49,4 +49,17 @@ RSpec.describe PlanEntry, :type => :model do
     it { should be_valid }
   end
   
+  describe "deleting the course plan" do
+    before do
+      @plan_id = @plan_entry.id
+      @course_id = @plan_entry.course_id
+      @courseplan.destroy
+    end
+
+    it "should destroy the plan entry but not the course" do
+      expect(PlanEntry.find_by(id: @plan_id)).to be_nil
+      expect(Course.find_by(id: @course_id)).to_not be_nil 
+    end
+  end
+
 end

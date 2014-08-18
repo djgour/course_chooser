@@ -1,0 +1,7 @@
+<%= render partial: 'courseplans/set_as_active', 
+           locals: { courseplan: courseplan } \
+    unless current_courseplan? courseplan  %>
+<%= render partial: 'courseplans/delete_courseplan',
+           locals: { courseplan: courseplan } %>
+
+

@@ -1,11 +1,16 @@
-<h2><%= courseplan.name %></h2>
-<ul>
-  <% courseplan.courses.each do |course| %>
-    <li><%= render partial: 'courses/course_widget',
-                   locals: { courseplan: courseplan, course: course }%></li>
-  <% end %>
-</ul>
-
+<h2>Course Plan: <%= courseplan.name %></h2>
+<%= render partial: 'courseplans/courseplan_changes',
+           locals: { courseplan: courseplan } %>
+<% if courseplan.plan_entries.any? %>
+  <ul>
+    <% courseplan.courses.each do |course| %>
+      <li><%= render partial: 'courses/course_widget',
+                     locals: { courseplan: courseplan, course: course }%></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There don't seem to be any courses in this plan.</p>
+<% end %>
 <%= render partial: 'courseplans/other_courseplans',
                      object: courseplan,
                      as: 'courseplan' %>
