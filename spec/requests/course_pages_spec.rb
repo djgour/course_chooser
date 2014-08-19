@@ -29,8 +29,8 @@ RSpec.describe "CoursePages", :type => :request do
   
   describe "viewing all courses" do
     before do
-      course2.update(code: "INF5555H")
-      course3.update(code: "INF8888H")
+      course2.update(code: "RLS5555H")
+      course3.update(code: "RLS8888H")
       course.save
       visit courses_path
     end

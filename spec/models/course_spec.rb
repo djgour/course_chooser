@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Course, :type => :model do
   before do
-    @course = Course.create(code: "BKS1001H", 
-                            name: "Introduction to Book History", 
-                     description: "A course about introducing book history.")
+    @course = Course.create(code: "HIS1001H", 
+                            name: "Introduction to History", 
+                     description: "A course about introducing history.")
   end
   
   subject { @course }
@@ -13,12 +13,12 @@ RSpec.describe Course, :type => :model do
   it { should respond_to(:code) }
   
   describe "when the course code is too short" do
-    before { @course.update(code: "BKS1000") }
+    before { @course.update(code: "HIS1000") }
     it { should_not be_valid }
   end
   
   describe "when the course code is too long" do
-    before { @course.update(code: "BKS1001HY") }
+    before { @course.update(code: "HIS1001HY") }
     it { should_not be_valid }
   end
   
