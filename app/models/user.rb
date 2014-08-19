@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
                     uniqueness:   { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 6 }, if: :validate_password?
-  #validate :check_password, on: :update
   has_many :courseplans, dependent: :destroy
   belongs_to :active_course_plan,
              class_name: "Courseplan",

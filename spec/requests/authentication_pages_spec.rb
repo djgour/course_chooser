@@ -53,4 +53,73 @@ RSpec.describe "AuthenticationPages", :type => :request do
       end
     end
   end
+
+  describe "authorization" do
+    describe "not being signed in" do
+      let!(:user) { FactoryGirl.create(:user) }
+      let!(:courseplan) { FactoryGirl.create(:courseplan, user_id: user.id) }
+
+      describe "visiting a courseplan" do
+        before { visit courseplan_path(courseplan) }
+        it { should have_text("Please sign in.") }
+        it { should_not have_text(courseplan.name) }
+      end
+
+      describe "visiting a user page" do
+        before { visit user_path(user) }
+        it { should have_text("Please sign in.") }
+        it { should_not have_text(user.name) }
+      end
+
+      describe "submitting to the change_active_courseplan action" do
+        before { patch change_active_courseplan_path(user) }
+        specify { expect(response).to redirect_to(signin_path) }
+      end
+
+      describe "when visiting a protected page" do
+        before do
+          visit courseplan_path(courseplan)
+          fill_in "Email", with: user.email
+          fill_in "Password", with: user.password
+          click_button "Sign in"
+        end
+
+        describe "after signing in"
+
+        it "should render the desired page" do
+          expect(page).to have_title("CourseChooser | #{courseplan.name}")
+        end
+      end
+    end
+
+    describe "signed in as the wrong user" do
+      let!(:user) { FactoryGirl.create(:user) }
+      let!(:wrong_user) { FactoryGirl.create(:user, name: "Joe", email: "wrong@example.com") }
+      let!(:courseplan) { FactoryGirl.create(:courseplan, user_id: wrong_user.id) }
+      before do
+        remember_token = User.new_remember_token
+        cookies[:remember_token] = remember_token
+        user.update_attribute(:remember_token, User.digest(remember_token))
+      end
+
+      describe "submitting a GET request to the Users#show action" do
+        before { get user_path(wrong_user) }
+        specify { expect(response.body).not_to match(wrong_user.name) }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+      
+      describe "submitting a GET request to the Courseplans#show action" do
+        before { get courseplan_path(courseplan) }
+        specify { expect(response.body).not_to match(courseplan.name) }
+        specify { expect(response.response_code).to eq 401 }
+      end
+
+      describe "submitting a PATCH request to the User#change_active_courseplan action" do
+        before { patch change_active_courseplan_path(wrong_user) }
+        specify { expect(response.response_code).to eq 401 }
+      end
+
+    end
+
+  end
 end

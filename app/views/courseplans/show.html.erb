@@ -1,3 +1,4 @@
-  <%= render partial: 'courseplans/show_plan',
-                      object: @courseplan,
-                      as: 'courseplan' %>
+<% provide(:title, @courseplan.name) %>
+<%= render partial: 'courseplans/show_plan',
+           object: @courseplan,
+           as: 'courseplan' %>

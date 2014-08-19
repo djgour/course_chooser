@@ -8,5 +8,13 @@ module ApplicationHelper
   def current_courseplan? (courseplan)
     current_courseplan == courseplan
   end
+
+  def format_title(title="")
+    title_string = "CourseChooser"
+    unless title.blank?    
+      title_string += " | #{title}"
+    end
+    title_string
+  end
   
 end

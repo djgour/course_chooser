@@ -1,4 +1,5 @@
 class CourseplansController < ApplicationController
+  before_action :correct_user, only: [:show, :destroy]
 
   def new
     @courseplan = Courseplan.new
@@ -29,7 +30,13 @@ class CourseplansController < ApplicationController
 
     private
 
-    def courseplan_params
-      params.require(:courseplan).permit(:name)
-    end
+      def courseplan_params
+        params.require(:courseplan).permit(:name)
+      end
+
+      def correct_user
+        current_user.courseplans.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+          render :file => "public/401.html", :status => :unauthorized
+      end
 end
