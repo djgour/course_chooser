@@ -6,7 +6,10 @@
       </div>
 
       <ul class="nav navbar-nav">
-        <li><%= link_to current_user.name, current_user if signed_in? %></li>
+        <% if signed_in? %>
+          <li><%= link_to current_user.name, current_user %></li>
+          <li><%= link_to("(Admin)",'#') if current_user.admin? %></li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if signed_in? %>

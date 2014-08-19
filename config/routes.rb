@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   match '/register', to: 'users#new', via: 'get'
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
-  match '/change_default_courseplan', to: 'users#change_default_courseplan', via: 'patch'
+  match '/change_active_courseplan', to: 'users#change_active_courseplan', via: 'patch'
 
 end
