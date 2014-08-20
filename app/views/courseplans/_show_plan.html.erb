@@ -2,12 +2,8 @@
 <%= render partial: 'courseplans/courseplan_changes',
            locals: { courseplan: courseplan } %>
 <% if courseplan.plan_entries.any? %>
-  <ul>
-    <% courseplan.courses.each do |course| %>
-      <li><%= render partial: 'courses/course_widget',
-                     locals: { courseplan: courseplan, course: course }%></li>
-    <% end %>
-  </ul>
+  <%= render partial: 'courseplans/semesters',
+             locals: { ordered_courseplan: courseplan.courses_by_semester, courseplan: courseplan }%>
 <% else %>
   <p>There don't seem to be any courses in this plan.</p>
 <% end %>

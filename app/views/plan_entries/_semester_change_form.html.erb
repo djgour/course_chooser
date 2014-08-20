@@ -1,0 +1,11 @@
+<span class="semester-widget">
+  <%= form_tag(courseplan_plan_entry_path(courseplan.id, entry.id), method: :patch) do %>
+    Change semester:
+    <%= select("Choose", "semester", capitalized_deranged_hash(GlobalConstants::SEASONS) )%>
+    <%= select_year(Date.today, start_year: 6.years.ago.year, end_year: 6.years.from_now.year) %>
+    -
+    <%= check_box_tag(:no_semester) %>
+    <%= label_tag(:no_semester, "Don't assign a semester.") %>
+    <%= submit_tag("Update", class: "semester-widget-button") %>
+  <% end %>
+</span>

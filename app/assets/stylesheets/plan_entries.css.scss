@@ -1,3 +1,12 @@
 // Place all the styles related to the plan_entries controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.semester-widget {
+  font-size: 0.75em;
+  color: #999;
+  
+  .semester-widget-button {
+    color: #000;
+  }
+}

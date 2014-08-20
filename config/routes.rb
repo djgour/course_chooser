@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :courses
 
   resources :courseplans do
-    resources :plan_entries, only: [:new, :create, :destroy]
+    resources :plan_entries, only: [:new, :create, :destroy, :update]
   end
 
   get 'users/new'

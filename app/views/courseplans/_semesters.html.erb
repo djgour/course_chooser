@@ -1,0 +1,26 @@
+<ul>
+  <!-- Get rid of the duplication - probably by creating a method that puts the nil semester entries at the top of the hash. -->
+  <% ordered_courseplan[:no_semester].each do |entry| %>
+    <li><%= render partial: 'courses/course_widget',
+                   locals: { courseplan: courseplan,
+                             course: Course.find(entry.course_id)}%>
+         <%= render partial: 'plan_entries/semester_change_form',
+                  locals: { entry: entry, courseplan: courseplan} %></li>
+  <% end %>
+</ul>
+
+<% ordered_courseplan.each do |semester, entries| %>
+  <% unless semester == :no_semester %>
+    <%= format_semester semester %>
+    <ul>
+      <% entries.each do |entry| %>
+        <li><%= render partial: 'courses/course_widget',
+                       locals: { courseplan: courseplan,
+                                 course: Course.find(entry.course_id)}%>
+            <%= render partial: 'plan_entries/semester_change_form',
+                      locals: { entry: entry, courseplan: courseplan} %></li>        
+      <% end %>
+    </ul>
+  <% end %>
+  
+<% end %>

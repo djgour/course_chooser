@@ -18,4 +18,33 @@ class Courseplan < ActiveRecord::Base
     self.plan_entries.find_by(course_id: course.id)
   end
   
+  def courses_by_semester
+    semesters = ActiveSupport::OrderedHash.new{ |hash, key| hash[key] = Array.new }
+    self.plan_entries.order('semester ASC').each do |entry|
+      sem = entry.semester
+      if sem.nil?
+        semesters[:no_semester] << entry
+      else
+        season = get_season_from(sem)
+        year = get_year_from(sem)
+        semester_key = "#{season}_#{year}".to_sym
+        semesters[semester_key] << entry
+      end
+    end
+    semesters
+  end
+  
+  def get_season_from(semester)
+    month = semester.month
+    result = GlobalConstants::SEASONS_INVERTED.select{|key, value| key === month }.values.first
+  end
+  
+  def get_season_from_month_number(month)
+    result = GlobalConstants::SEASONS_INVERTED.select{|key, value| key === month }.values.first
+  end
+  
+  def get_year_from(semester)
+    semester.year.to_s
+  end
+  
 end

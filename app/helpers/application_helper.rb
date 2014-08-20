@@ -17,4 +17,13 @@ module ApplicationHelper
     title_string
   end
   
+  def capitalized_deranged_hash(hash)
+    hash_with_capitals = ActiveSupport::OrderedHash.new
+    hash.each do |key, value|
+      capitalized_key = key.to_s.capitalize
+      hash_with_capitals[capitalized_key] = value.first
+    end
+    
+    hash_with_capitals
+  end
 end

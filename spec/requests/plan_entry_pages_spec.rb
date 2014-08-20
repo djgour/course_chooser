@@ -16,11 +16,16 @@ RSpec.describe "PlanEntryPages", :type => :request do
   Course.create(name: "Advanced Rails",
                 code: "RLS3000H",
                 description: "Become a pro in Ruby on Rails.")
+                
+  Course.create(name: "Factories",
+                code: "RLS3013H",
+                description: "Learn how to make your tests much easier.")
 
   before do
     @course1 = Course.first
     @course2 = Course.second
     @course3 = Course.third
+    @course4 = Course.fourth
     sign_in user
   end
   
@@ -50,6 +55,26 @@ RSpec.describe "PlanEntryPages", :type => :request do
       it "should increase the courseplan's course count by 1" do
         expect { first(:link, "+").click }.to change(user.active_courseplan.courses, :count).by(1)
       end
-    end
+      
+      describe "semesters" do
+        before do
+          plan = user.courseplans.first
+          plan.add_course!(@course1)
+          plan.add_course!(@course2)
+          plan.add_course!(@course3)
+          plan.add_course!(@course4)
+          plan.plan_entries.find_by(course_id: @course1.id).set_semester(year: 2014, season: :winter)      
+          plan.plan_entries.find_by(course_id: @course2.id).set_semester(year: 2013, season: :fall) 
+          plan.plan_entries.find_by(course_id: @course4.id).set_semester(year: 2014, season: :winter)
+          visit courseplan_path(plan)   
+        end
+        
+        it { should have_text('Fall 2013') }
+        it { should have_text('Winter 2014') }
+        describe "forms for changing semesters" do
+          pending
+        end
+      end
+    end   
   end
 end
