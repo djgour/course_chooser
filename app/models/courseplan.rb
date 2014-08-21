@@ -1,4 +1,5 @@
 class Courseplan < ActiveRecord::Base
+  include Semesterable
   belongs_to :user
   has_many :plan_entries, dependent: :destroy
   has_many :courses, through: :plan_entries
@@ -32,19 +33,6 @@ class Courseplan < ActiveRecord::Base
       end
     end
     semesters
-  end
-  
-  def get_season_from(semester)
-    month = semester.month
-    result = GlobalConstants::SEASONS_INVERTED.select{|key, value| key === month }.values.first
-  end
-  
-  def get_season_from_month_number(month)
-    result = GlobalConstants::SEASONS_INVERTED.select{|key, value| key === month }.values.first
-  end
-  
-  def get_year_from(semester)
-    semester.year.to_s
   end
   
 end

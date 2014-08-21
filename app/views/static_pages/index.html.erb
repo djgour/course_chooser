@@ -1,6 +1,5 @@
 <% provide(:title, home_title) %>
 
-<h1><%= yield :title %></h1>
 <% if signed_in? %>
   <div class="courseplans">
     <%= render 'courseplans/main' %>
@@ -9,5 +8,10 @@
     <%= render 'courses/all' %>
   </div>
 <% else %>
-  <%= link_to 'Create an account now!', users_new_path, class: "btn btn-primary" %>
+  <div class="jumbotron">
+    <h1><%= yield :title %></h1>
+    <p>A tool that lets you plan out which courses you'll be taking.</p>
+    <%= link_to 'Create an account now!', users_new_path, class: "btn btn-primary" %>
+    <%= link_to 'Sign in', signin_path, class: "btn btn-success" %>
+  </div>
 <% end %>

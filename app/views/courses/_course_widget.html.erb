@@ -1,4 +1,4 @@
-<%= course_link course %>
+<span class="coursename"><%= course_link course %></span>
 <% unless courseplan.nil? %>
   <%= render partial: 'courses/addition_widget',
              locals: { courseplan: courseplan, course: course } %>

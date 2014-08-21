@@ -5,15 +5,23 @@
 /* course widgets */
 @mixin widget {
   font-weight: bold;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #000;
 }
 
   
 .addition {
-  color: green;
+  background-color: #B0FFC9;
   @include widget;
 }
 
 .removal {
-  color: red;
+  background-color: #F29BA6;
   @include widget;
 }
+
+.coursename {
+  font-size: 1.5em;
+} 

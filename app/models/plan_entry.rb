@@ -1,4 +1,5 @@
 class PlanEntry < ActiveRecord::Base
+  include Semesterable
   belongs_to :courseplan
   belongs_to :course
   
@@ -20,4 +21,9 @@ class PlanEntry < ActiveRecord::Base
   def no_semester!
     self.update(semester: nil)
   end
+  
+  def semester_to_string
+      convert_semester_datetime_to_string(self.semester)
+  end
+  
 end

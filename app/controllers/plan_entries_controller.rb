@@ -19,13 +19,12 @@ class PlanEntriesController < ApplicationController
     @courseplan = current_user.courseplans.find_by(id: params[:courseplan_id])
     @plan_entry = @courseplan.plan_entries.find_by(id: params[:id])
    if params[:no_semester]
-      @plan_entry.no_semester!
+     @plan_entry.no_semester!
    else
-      @month = params[:Choose][:semester].to_i
-      @season = @courseplan.get_season_from_month_number(@month)
-      @year = params[:date][:year].to_i
-      @plan_entry.set_semester(year: @year, season: @season)
+     season,year = params[:Choose][:semester].split(' ')
+     @plan_entry.set_semester(year: year.to_i, season: season.downcase.to_sym)
   end
+  
   redirect_to :back
   end
 end
