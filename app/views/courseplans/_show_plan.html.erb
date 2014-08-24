@@ -4,6 +4,8 @@
 <% if courseplan.plan_entries.any? %>
   <%= render partial: 'courseplans/semesters',
              locals: { ordered_courseplan: courseplan.courses_by_semester, courseplan: courseplan }%>
+  <%= render partial: 'courseplans/credit_total',
+             locals: { courseplan: courseplan } %>
 <% else %>
   <p>There don't seem to be any courses in this plan.</p>
 <% end %>

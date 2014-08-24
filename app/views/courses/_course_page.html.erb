@@ -2,3 +2,6 @@
 <h2><%= course.code %></h2>
 <br />
 <p><%= course.description %></p>
+<% if current_user.is_admin? %>
+  <%= link_to 'Edit', '#' %>
+<% end %>

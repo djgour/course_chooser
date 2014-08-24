@@ -120,6 +120,25 @@ RSpec.describe "AuthenticationPages", :type => :request do
       end
 
     end
-
+    
+    describe "attempting to edit a course page" do
+      let!(:user) { FactoryGirl.create(:user) }
+      let!(:admin_user) { FactoryGirl.create(:user, email: "admin@example.com", admin: true) }
+      let!(:course) { FactoryGirl.create(:course) }
+      
+      describe "as a non-admin user" do
+        before do
+          remember_token = User.new_remember_token
+          cookies[:remember_token] = remember_token
+          user.update_attribute(:remember_token, User.digest(remember_token))
+        end
+        
+        describe "attempting to visit course edit page" do
+          before { get edit_course_path(course) }
+          
+          specify { expect(response.response_code).to eq 401 }
+        end
+      end
+    end
   end
 end

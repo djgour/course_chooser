@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
       redirect_to signin_url, notice: "Please sign in."
     end
   end
+  
+  def require_admin
+    unless current_user.admin?
+      render :file => "public/401.html", :status => :unauthorized
+    end
+  end
 end

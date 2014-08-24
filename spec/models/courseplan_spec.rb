@@ -121,4 +121,23 @@ RSpec.describe Courseplan, :type => :model do
     end
   end
   
+  describe "credit value of courses contained" do
+    let!(:course1) { FactoryGirl.create(:course) }
+    let!(:course2) { FactoryGirl.create(:course, code: "RLS1234H") }
+    before do
+      @courseplan.name = "Credits"
+      @courseplan.user_id = @user.id
+      @courseplan.save
+    end
+    
+    it "should give total value of courses within" do
+      @courseplan.add_course!(course1)
+      expect(@courseplan.total_credits).to eq 0.5
+      
+      @courseplan.add_course!(course2)
+      expect(@courseplan.total_credits).to eq 1.0
+    end
+    
+  end
+  
 end

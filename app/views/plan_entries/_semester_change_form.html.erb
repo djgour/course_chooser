@@ -4,8 +4,7 @@
     <%= select("Choose", "semester",
                semester_with_year_hash(GlobalConstants::SEASONS),
                {selected: default_semester_for(entry)},
-               {:class => "select-small",
-                :onchange => "this.form.submit()"}) %>
+               {:onchange => "this.form.submit()"}) %>
     <% if !entry.semester.nil? %>
       <%= link_to 'No semester',
                   courseplan_plan_entry_path(courseplan.id, entry.id, :no_semester => true),

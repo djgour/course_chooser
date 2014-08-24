@@ -7,19 +7,23 @@ RSpec.describe "PlanEntryPages", :type => :request do
   
   Course.create(name: "Intro to Rails",
                 code: "RLS1000H",
-                description: "An introduction to Ruby on Rails")
+                description: "An introduction to Ruby on Rails",
+                credits: 50)
 
   Course.create(name: "Intermediate Rails",
                 code: "RLS2000H",
-                description: "Dive even deeper into Rails.")
+                description: "Dive even deeper into Rails.",
+                credits: 50)
 
   Course.create(name: "Advanced Rails",
                 code: "RLS3000H",
-                description: "Become a pro in Ruby on Rails.")
+                description: "Become a pro in Ruby on Rails.",
+                credits: 50)
                 
   Course.create(name: "Factories",
                 code: "RLS3013H",
-                description: "Learn how to make your tests much easier.")
+                description: "Learn how to make your tests much easier.",
+                credits: 50 )
 
   before do
     @course1 = Course.first
@@ -73,6 +77,17 @@ RSpec.describe "PlanEntryPages", :type => :request do
         it { should have_text('Winter 2014') }
         describe "forms for changing semesters" do
           pending
+        end
+        
+        describe "credits" do
+          before do
+            plan = user.courseplans.first
+            @credits = plan.plan_entries.count * 0.5
+            visit root_url
+          end
+          it "should show you the total value of credits in the courseplan" do
+            expect(page).to have_text("#{@credits} credits")
+          end
         end
       end
     end   

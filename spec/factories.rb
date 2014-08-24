@@ -16,5 +16,6 @@ FactoryGirl.define do
     name    "Learning Rails"
     code    "RLS7777H"
     description "Learn how to use Ruby on Rails to create online information systems."
+    credits 50
   end
 end

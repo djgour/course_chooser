@@ -1,0 +1,12 @@
+<% if courseplan.has_too_many_courses? %>
+  <% divclass = "too-many-courses" %>
+  <% message = "You have too many courses in your courseplan. You can take a maximum of #{GlobalConstants::MAX_CREDITS} credits worth of courses." %>
+<% else %>
+    <% divclass = "safe-course-amount" %>
+    <% message = "" %>
+<% end %>
+<div class=<%= divclass %>>You have <%= pluralize courseplan.total_credits, 'credit' %> out of
+  <%= pluralize GlobalConstants::MAX_CREDITS, 'credit' %>. <p><%= message %></p></div>
+    
+    
+    

@@ -27,6 +27,31 @@ RSpec.describe "CoursePages", :type => :request do
     it { should have_content(course.description) }
   end
   
+  describe "the edit link" do
+    before { visit course_path(course) }
+    it "should not be visible if you're not an admin user" do
+      expect(page).not_to have_link('Edit')
+    end
+    
+    describe "when user is an admin" do
+      before do
+        user.toggle!(:admin)
+        visit course_path(course)
+      end
+      
+      it "should be visible" do
+        expect(page).to have_link('Edit')
+      end
+      
+      describe "using the Edit link" do
+        before { click_link 'Edit' }
+        it "should take the user to the edit page" do
+          expect(page).to have_title('Edit #{course.code}: #{course.name}')
+        end
+      end
+    end
+  end
+  
   describe "viewing all courses" do
     before do
       course2.update(code: "RLS5555H")
@@ -48,4 +73,5 @@ RSpec.describe "CoursePages", :type => :request do
       
      end
   end
+  
 end

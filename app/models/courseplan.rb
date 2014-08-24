@@ -1,5 +1,7 @@
 class Courseplan < ActiveRecord::Base
   include Semesterable
+  include Creditable
+  
   belongs_to :user
   has_many :plan_entries, dependent: :destroy
   has_many :courses, through: :plan_entries
@@ -33,6 +35,14 @@ class Courseplan < ActiveRecord::Base
       end
     end
     semesters
+  end
+  
+  def total_credits
+    calculate_credits_for self.courses.sum(:credits)
+  end
+  
+  def has_too_many_courses?
+    self.total_credits > GlobalConstants::MAX_CREDITS
   end
   
 end

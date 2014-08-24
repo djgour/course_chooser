@@ -1,4 +1,5 @@
 class Course < ActiveRecord::Base
+  include Creditable
   
   validates :code, length: { is: 8 }
   validates :description, length: { minimum: 10 }
@@ -10,4 +11,9 @@ class Course < ActiveRecord::Base
   def self.all_sorted
     self.all.sort_by{ |e| e[:code] }
   end
+  
+  def fce
+    calculate_credits_for(self.credits)
+  end
+  
 end

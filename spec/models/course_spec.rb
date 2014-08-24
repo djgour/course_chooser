@@ -11,6 +11,7 @@ RSpec.describe Course, :type => :model do
   it { should respond_to(:name) }
   it { should respond_to(:description) }
   it { should respond_to(:code) }
+  it { should respond_to(:credits) } 
   
   describe "when the course code is too short" do
     before { @course.update(code: "HIS1000") }
@@ -30,5 +31,12 @@ RSpec.describe Course, :type => :model do
   describe "when the name is missing" do
     before { @course.update(name: "") }
     it { should_not be_valid }
+  end
+  
+  describe "credits" do
+    before { @course.update(credits: 50) }
+    it "should return the full course equivalent to one decimal" do
+      expect(@course.fce).to eq 0.5
+    end
   end
 end
