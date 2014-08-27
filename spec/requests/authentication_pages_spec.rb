@@ -121,7 +121,7 @@ RSpec.describe "AuthenticationPages", :type => :request do
 
     end
     
-    describe "attempting to edit a course page" do
+    describe "attempting to create or edit a course page" do
       let!(:user) { FactoryGirl.create(:user) }
       let!(:admin_user) { FactoryGirl.create(:user, email: "admin@example.com", admin: true) }
       let!(:course) { FactoryGirl.create(:course) }
@@ -133,9 +133,14 @@ RSpec.describe "AuthenticationPages", :type => :request do
           user.update_attribute(:remember_token, User.digest(remember_token))
         end
         
-        describe "attempting to visit course edit page" do
-          before { get edit_course_path(course) }
-          specify { expect(response.response_code).to eq 401 }
+        describe "submitting a GET request to the Courses#new action" do
+          before { get new_course_path }
+          specify { expect(response.response_code).to eq 401 } 
+        end
+        
+        describe "submitting a POST request to the Courses#create action" do
+          before { post courses_path }
+          specify { expect(response.response_code).to eq 401 } 
         end
         
         describe "submitting a GET request to the Courses#edit action" do

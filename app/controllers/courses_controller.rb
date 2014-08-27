@@ -1,10 +1,24 @@
 class CoursesController < ApplicationController
-  before_action :require_admin, only: [:edit, :update] # TDD add create and update
+  before_action :require_admin, only: [:new, :create, :edit, :update]
   def show
     @course = Course.find(params[:id])
   end
   
   def index
+  end
+  
+  def new
+    @course = Course.new
+  end
+  
+  def create
+    @course = Course.new(course_params)
+    if @course.save
+      flash[:success] = "Course successfully created!"
+      redirect_to @course
+    else
+      render 'new'
+    end
   end
   
   def edit
@@ -17,6 +31,7 @@ class CoursesController < ApplicationController
       flash[:success] = "Successfully updated!"
       redirect_to @course
     else
+      
       render 'edit'
     end
   end

@@ -1,0 +1,6 @@
+<% provide(:title, "Add new course") %>
+<%= form_for @course do |f| %>
+  <%= render partial: 'fields',
+             locals: { f: f, course: @course }%>
+  <%= f.submit "Create", class: "btn btn-success" %>
+<% end %>

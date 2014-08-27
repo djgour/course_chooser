@@ -1,4 +1,5 @@
-<% render 'shared/error_messages', object: course %>
+<%= render 'shared/error_messages', object: course %>
+
 <%= f.label :code, class: "control-label" %>
 <%= f.text_field :code, maxlength: 8, class: "form-control" %>
 

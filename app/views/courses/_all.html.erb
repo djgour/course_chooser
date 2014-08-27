@@ -1,7 +1,11 @@
 <ul>
-  <% Course.all_sorted.each do |course| %>
+    <% Course.all_sorted.each do |course| %>
     <li><%= render partial: 'courses/course_widget',
                    locals: { courseplan: current_user.active_courseplan,
                              course: course }%></li>
   <% end %>
 </ul>
+
+<% if current_user.is_admin? %>
+  <%= link_to 'Add new course', new_course_path, class: "btn btn-success" %>
+<% end %>
