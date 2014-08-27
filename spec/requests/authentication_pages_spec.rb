@@ -135,7 +135,16 @@ RSpec.describe "AuthenticationPages", :type => :request do
         
         describe "attempting to visit course edit page" do
           before { get edit_course_path(course) }
-          
+          specify { expect(response.response_code).to eq 401 }
+        end
+        
+        describe "submitting a GET request to the Courses#edit action" do
+          before { get edit_course_path(course) }
+          specify { expect(response.response_code).to eq 401 } 
+        end
+        
+        describe "submitting a PATCH request to the Courses#update action" do
+          before { patch course_path(course) }
           specify { expect(response.response_code).to eq 401 }
         end
       end
