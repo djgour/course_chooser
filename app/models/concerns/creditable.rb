@@ -5,5 +5,8 @@ module Creditable
     (credits_int / 100.0).round(1)
   end
   
-  
+  def get_int_from_fce(credits)
+    (credits * 100).to_i
+  end
+    
 end

@@ -2,6 +2,7 @@
 <h2><%= course.code %></h2>
 <br />
 <p><%= course.description %></p>
+<p>Credits: <%= course.fce %></p>
 <% if current_user.is_admin? %>
-  <%= link_to 'Edit', '#' %>
+  <%= link_to 'Edit', edit_course_path(course.id) %>
 <% end %>

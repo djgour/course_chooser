@@ -11,5 +11,6 @@ module CoursesHelper
   def addition_link_for(course, courseplan)
     link_to "+", courseplan_plan_entries_path(courseplan.id, course: course), method: :post, class: "widget addition"
   end
+
   
 end

@@ -16,4 +16,12 @@ class Course < ActiveRecord::Base
     calculate_credits_for(self.credits)
   end
   
+  def update_fce_from_params(fce_string)
+    # add in some verification that string is numeric
+    # in the meantime, bad data results in 0
+    
+    new_credits = get_int_from_fce(fce_string.to_f)
+    self.update(credits: new_credits)
+  end
+  
 end

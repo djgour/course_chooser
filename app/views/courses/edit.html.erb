@@ -1,0 +1,6 @@
+<% provide(:title, "Edit #{@course.code}: #{@course.name}") %>
+<%= form_for @course do |f| %>
+  <%= render partial: 'fields',
+             locals: { f: f, course: @course } %>
+  <%= f.submit "Submit changes", class: "btn btn-primary" %>
+<% end %>

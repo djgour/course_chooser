@@ -1,4 +1,4 @@
-<% provide(:title, @course.name) %>
+<% provide(:title, "#{@course.code}: #{@course.name}") %>
 <%= render partial: 'courses/course_page',
            object: @course,
            as: 'course' %>

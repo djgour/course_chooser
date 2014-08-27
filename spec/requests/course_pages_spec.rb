@@ -22,6 +22,7 @@ RSpec.describe "CoursePages", :type => :request do
       visit course_path(course) 
     end
     
+    it { should have_title("CourseChooser | #{course.code}: #{course.name}") }
     it { should have_content(course.name) }
     it { should have_content(course.code) }
     it { should have_content(course.description) }
@@ -44,9 +45,25 @@ RSpec.describe "CoursePages", :type => :request do
       end
       
       describe "using the Edit link" do
-        before { click_link 'Edit' }
-        it "should take the user to the edit page" do
-          expect(page).to have_title('Edit #{course.code}: #{course.name}')
+        before do
+          visit course_path(course)
+          click_link 'Edit' 
+        end
+        it { should have_title("Edit #{course.code}: #{course.name}") }
+        
+        describe "Editing a course with valid information" do
+          before do
+            fill_in "Name", with: "Off the Rails"
+            fill_in "Code", with: "RLS9999Z"
+            fill_in "Description", with: "Learn what happens when you edit courses using forms."
+            fill_in "credits", with: 1.0
+            click_button "Submit changes"
+          end
+          
+          it { should have_content("Successfully updated!") }
+          it { should have_title("CourseChooser | RLS9999Z: Off the Rails") }
+          it { should have_content("Learn what happens when") }
+          it { should have_content("Credits: 1.0") }
         end
       end
     end
